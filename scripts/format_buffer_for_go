@@ -1,0 +1,115 @@
+#!/usr/bin/env python3
+
+"""
+A small tool to reformat continuous hex buffers into Go syntax representations,
+useful for implementing buffers provided by Wireshark in Go-based testing.
+"""
+
+__author__ = "John P. Lettman"
+__email__ = "the@johnlettman.com"
+__version__ = "0.1.0"
+
+import argparse
+from textwrap import indent
+from typing import Optional
+import sys
+
+def format_go_bytes(buffer: str, wrap_at: Optional[int] = 8) -> str:
+    """
+    Formats the given buffer of hexadecimal bytes into a Go syntax representation.
+
+    :param buffer: The buffer containing the hexadecimal bytes.
+    :param wrap_at: Optional. The number of bytes to wrap at. Default is 8.
+    :return: The formatted string representing the hexadecimal bytes.
+
+    Example
+    -------
+    >>> format_go_bytes('A1B2C3D4', 4)
+    '0xA1, 0xB2, 0xC3, 0xD4'
+    >>> format_go_bytes('A1B2C3D4', 2)
+    '0xA1, 0xB2\n0xC3, 0xD4'
+    """
+    # split the buffer into groups of 2 for each hex byte
+    hex_bytes = [buffer[i:i + 2].upper() for i in range(0, len(buffer), 2)]
+
+    # prepend "0x" to each hex byte
+    hex_formatted_bytes = ['0x' + chunk for chunk in hex_bytes]
+
+    # assemble lines
+    lines = []
+    if wrap_at is None:
+        # do not perform wrapping, place the bytes on one line
+        lines = [', '.join(hex_formatted_bytes)]
+    else:
+        # perform wrapping, chunk the bytes by provided `wrap_at`
+        for i in range(0, len(hex_formatted_bytes), wrap_at):
+            lines.append(', '.join(hex_formatted_bytes[i:i + wrap_at]))
+
+    # join the lines with line endings
+    return ',\n'.join(lines) + ","
+
+def format_go_byte_slice(buffer: str, wrap_at: Optional[int] = 8) -> str:
+    """
+    Formats the given buffer of hexadecimal bytes into a Go syntax `[]byte` slice representation.
+
+    :param buffer: The buffer containing the hexadecimal bytes.
+    :param wrap_at: (optional) The number of bytes to wrap at. Default is 8.
+    :return: The formatted Go []byte slice.
+
+    Example
+    -------
+    >>> format_go_bytes('A1B2C3D4', 4)
+    '[]byte{\\n    0xA1, 0xB2, 0xC3, 0xD4\\n}'
+    >>> format_go_bytes('A1B2C3D4', 2)
+    '[]byte{\\n    0xA1, 0xB2\\n    0xC3, 0xD4\\n}'
+
+    """
+    go_bytes = format_go_bytes(buffer, wrap_at)
+    return "[]byte{{\n{0}\n}}".format(indent(go_bytes, "    "))
+
+
+def parse_args(argv: list[str]) -> argparse.Namespace:
+    """
+    Parses the command line arguments using the argparse module in Python.
+
+    :param argv: A list of command line arguments.
+    :return: An argparse Namespace object containing the parsed arguments.
+    """
+    parser = argparse.ArgumentParser(
+        prog="format_buffer_for_go", description=__doc__,
+        epilog="Version {0} by {1} <{2}>".format(__version__, __author__, __email__))
+
+    parser.add_argument("buffer", help="the hexadecimal buffer to format")
+    parser.add_argument("-w", "--wrap", type=int, default=8, help="the number of bytes to wrap at")
+    parser.add_argument("-W", "--no-wrap", action="store_true", help="do not wrap the buffer")
+    parser.add_argument("-s", "--slice", action="store_true", help="generate a Go slice representation")
+
+    return parser.parse_args(argv)
+
+
+def main(argv: list[str]) -> int:
+    """
+    This method is the main entry point of the script.
+    It takes a list of command-line arguments, parses them using the `parse_args` function,
+    and then formats the `buffer` based on the provided arguments.
+
+    The formatted buffer is then printed to the console.
+
+    :param argv: A list of command-line arguments passed to the script.
+    :return: An integer value representing the exit status of the script.
+    """
+    args = parse_args(argv)
+    buffer = args.buffer
+    wrap_at = args.wrap if args.wrap and not args.no_wrap else None
+
+    if args.slice:
+        formatted_buffer = format_go_byte_slice(buffer, wrap_at)
+    else:
+        formatted_buffer = format_go_bytes(buffer, wrap_at)
+
+    print(formatted_buffer)
+    return 0
+
+
+if __name__ == "__main__":  # CLI script entry
+    sys.exit(main(sys.argv[1:]))
