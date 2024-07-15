@@ -17,14 +17,10 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
-      - name: Run Tests
-        run: |
-          go install github.com/jstemmer/go-junit-report@latest
-          go test -v ./... | go-junit-report -set-exit-code > report.xml
-      - name: Summarize Tests
-        uses: test-summary/action@v1
+      - name: Test
+        uses: robherley/go-test-action@v0
         with:
-          paths: report.xml
+          testArguments: -covermode=atomic -coverprofile=coverage.out ./...
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
