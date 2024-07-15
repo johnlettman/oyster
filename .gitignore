@@ -1,3 +1,12 @@
+### Testing
+# Local samples
+samples/
+
+### Documentation
+# Generated docs
+docs/
+doc/
+
 ### JetBrains
 # User-specific stuff
 .idea/**/workspace.xml
