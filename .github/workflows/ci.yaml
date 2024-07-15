@@ -23,6 +23,8 @@ jobs:
           go test -v ./... | go-junit-report -set-exit-code > report.xml
       - name: Summarize Tests
         uses: test-summary/action@v1
+        with:
+          paths: report.xml
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
