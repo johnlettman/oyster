@@ -27,7 +27,7 @@ jobs:
           go install go.abhg.dev/doc2go@latest
           doc2go -out docs ./...
       - name: Deploy documentation to GitHub pages
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/devel'
         uses: peaceiris/actions-gh-pages@v2.3.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
