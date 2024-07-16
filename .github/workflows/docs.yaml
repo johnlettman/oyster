@@ -34,8 +34,8 @@ jobs:
         uses: actions/setup-node@v4
       - name: Generate documentation
         run: |
-          npm install pagefind
-          export PAGEFIND="${HOME}/node_modules/.bin/pagefind"
+          npm install pagefind --prefix ./node_modules
+          export PAGEFIND="./node_modules/.bin/pagefind"
           
           go install go.abhg.dev/doc2go@latest
           doc2go -out docs -pagefind="${PAGEFIND}" ./...
