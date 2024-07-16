@@ -40,7 +40,7 @@ jobs:
           go install go.abhg.dev/doc2go@latest
           doc2go -out docs -pagefind="${PAGEFIND}" ./...
       - name: Upload documentation
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: documentation
           path: docs
