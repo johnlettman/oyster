@@ -3,6 +3,7 @@ package util
 import (
 	"github.com/stretchr/testify/assert"
 	"golang.org/x/exp/constraints"
+	"reflect"
 	"testing"
 )
 
@@ -34,7 +35,7 @@ func testAbsCase[T constraints.Integer | constraints.Float](t *testing.T, c Test
 }
 
 func testAbsGeneric[T constraints.Integer | constraints.Float](t *testing.T) {
-	n := TypeName(*new(T))
+	n := reflect.TypeFor[T]().Name()
 	f, ok := testAbsFakeFunctions[n]
 	if !ok {
 		t.Fatalf("can not locate randomizer function for type %s", n)
