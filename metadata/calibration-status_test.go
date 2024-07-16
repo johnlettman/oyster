@@ -9,7 +9,7 @@ import (
 func TestReflectivityCalibrationStatus_Age(t *testing.T) {
 	type TestCase struct {
 		name string
-		s    ReflectivityCalibration
+		s    ReflectivityCalibrationStatus
 		want time.Duration
 	}
 
@@ -18,17 +18,17 @@ func TestReflectivityCalibrationStatus_Age(t *testing.T) {
 	cases := []TestCase{
 		{
 			"valid with timestamp",
-			ReflectivityCalibration{Valid: true, Timestamp: now.Add(-1 * time.Minute)},
+			ReflectivityCalibrationStatus{Valid: true, Timestamp: now.Add(-1 * time.Minute)},
 			1 * time.Minute,
 		},
 		{
 			"valid with timestamp in past",
-			ReflectivityCalibration{Valid: true, Timestamp: now.Add(-1 * time.Hour)},
+			ReflectivityCalibrationStatus{Valid: true, Timestamp: now.Add(-1 * time.Hour)},
 			1 * time.Hour,
 		},
 		{
 			"valid with no timestamp",
-			ReflectivityCalibration{Valid: true, Timestamp: time.Time{}},
+			ReflectivityCalibrationStatus{Valid: true, Timestamp: time.Time{}},
 			time.Since(time.Time{}),
 		},
 	}
