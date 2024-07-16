@@ -7,9 +7,16 @@ on:
       - "**/*.md"
       - "**/*.py"
       - "LICENSE"
+  workflow_dispatch:
+    inputs:
+      head:
+        description: "Git commit to publish documentation for."
+        required: true
+        type: string
 
 jobs:
-  docs:
+  build:
+    name: Build documentation
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -22,20 +29,38 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
-      - name: Build documentation
+          cache: true
+      - name: Generate documentation
         run: |
           go install go.abhg.dev/doc2go@latest
           doc2go -out docs ./...
-      - name: Deploy documentation to GitHub pages
-        if: github.ref == 'refs/heads/devel'
-        uses: peaceiris/actions-gh-pages@v2.3.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: ./docs
-          COMMIT_MESSAGE: "Pages: ${{ github.event.head_commit.message }}"
       - name: Upload documentation
         uses: actions/upload-artifact@v1
         with:
           name: documentation
           path: docs
+      - name: Upload pages
+        if: github.ref == 'refs/heads/devel'
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: docs
+
+  publish:
+    name: Publish pages website
+    needs: build
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub pages
+        if: github.ref == 'refs/heads/devel'
+        id: deployment
+        uses: actions/deploy-pages@v1
+
