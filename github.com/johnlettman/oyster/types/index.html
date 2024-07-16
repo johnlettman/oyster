@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="doc2go">
+    <link href="../../../../_/css/main.css" rel="stylesheet" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../../../../_/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../../../_/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../../../_/icons/favicon-16x16.png">
+    <link rel="shortcut icon" href="../../../../_/icons/favicon.ico"><title>types</title>
+</head>
+  <body>
+    <nav>
+        <a href="../../..">github.com</a>/<a href="../..">johnlettman</a>/<a href="..">oyster</a>/types<span class="navbar-right">
+          <a href="../../../..">Root</a> | <a href="#pkg-index">Index</a></span>
+      </nav>
+    <main><h2 id="pkg-overview">package types</h2>
+<pre class="chroma"><span class="kn">import</span> <span class="s">&#34;github.com/johnlettman/oyster/types&#34;</span></pre>
+<h3 id="pkg-index">Index</h3>
+<ul>
+  <li>
+      <a href="#AutoStartFlag">type AutoStartFlag</a>
+      <ul>
+          <li><a href="#AutoStartFlag.GoString">func (a AutoStartFlag) GoString() string</a></li>
+          <li><a href="#AutoStartFlag.MarshalJSON">func (a AutoStartFlag) MarshalJSON() ([]byte, error)</a></li>
+          <li><a href="#AutoStartFlag.MarshalText">func (a AutoStartFlag) MarshalText() ([]byte, error)</a></li>
+          <li><a href="#AutoStartFlag.String">func (a AutoStartFlag) String() string</a></li>
+          <li><a href="#AutoStartFlag.UnmarshalJSON">func (a *AutoStartFlag) UnmarshalJSON(data []byte) error</a></li>
+          <li><a href="#AutoStartFlag.UnmarshalText">func (a *AutoStartFlag) UnmarshalText(text []byte) error</a></li>
+          </ul>
+      </li>
+  </ul><h3 id="pkg-types">Types</h3>
+  <h3 id="AutoStartFlag">type AutoStartFlag</h3>
+    <pre class="chroma"><span class="kd">type</span> <span class="nx">AutoStartFlag</span> <a href="pseudo"><span class="nx">pseudo</span></a><span class="p">.</span><a href="pseudo#IntBool"><span class="nx">IntBool</span></a></pre>
+    <p>AutoStartFlag represents a boolean flag used for enabling or disabling auto-start functionality.
+<p>For additional information, refer to <a href="https://static.ouster.dev/sensor-docs/image_route1/image_route2/sensor_operations/sensor-operations.html#standby-operating-mode-examples">Ouster docs: Standby Operating Mode Examples</a>.
+<p>Warning:
+<p>AutoStartFlag has been deprecated with firmware v2.4 and later.
+Usage of AutoStartFlag in firmware prior to v2.0.0 has unexpected behavior.
+<pre class="chroma"><span class="kd">const</span> <span class="p">(</span>
+	<span id="AutoStartOn"><span class="nx">AutoStartOn</span></span>  <a href="#AutoStartFlag"><span class="nx">AutoStartFlag</span></a> <span class="p">=</span> <a href="https://pkg.go.dev/builtin#true"><span class="kc">true</span></a>  <span class="c1">// Equivalent to OperatingMode &#34;NORMAL&#34;
+</span><span class="c1"></span>	<span id="AutoStartOff"><span class="nx">AutoStartOff</span></span> <a href="#AutoStartFlag"><span class="nx">AutoStartFlag</span></a> <span class="p">=</span> <a href="https://pkg.go.dev/builtin#false"><span class="kc">false</span></a> <span class="c1">// Equivalent to OperatingMode &#34;STANDBY&#34;
+</span><span class="c1"></span><span class="p">)</span></pre>
+  <h4 id="AutoStartFlag.GoString">func (AutoStartFlag) GoString</h4>
+  <pre class="chroma"><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <a href="#AutoStartFlag"><span class="nx">AutoStartFlag</span></a><span class="p">)</span> <span class="nf">GoString</span><span class="p">()</span> <a href="https://pkg.go.dev/builtin#string"><span class="kt">string</span></a></pre>
+  <p>GoString returns the Go syntax representation of an AutoStartFlag.
+<h4 id="AutoStartFlag.MarshalJSON">func (AutoStartFlag) MarshalJSON</h4>
+  <pre class="chroma"><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <a href="#AutoStartFlag"><span class="nx">AutoStartFlag</span></a><span class="p">)</span> <span class="nf">MarshalJSON</span><span class="p">()</span> <span class="p">([]</span><a href="https://pkg.go.dev/builtin#byte"><span class="kt">byte</span></a><span class="p">,</span> <a href="https://pkg.go.dev/builtin#error"><span class="kt">error</span></a><span class="p">)</span></pre>
+  <p>MarshalJSON converts AutoStartFlag to JSON format using pseudo.IntBool.MarshalJSON method.
+It returns the JSON bytes and any occurred error.
+<h4 id="AutoStartFlag.MarshalText">func (AutoStartFlag) MarshalText</h4>
+  <pre class="chroma"><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <a href="#AutoStartFlag"><span class="nx">AutoStartFlag</span></a><span class="p">)</span> <span class="nf">MarshalText</span><span class="p">()</span> <span class="p">([]</span><a href="https://pkg.go.dev/builtin#byte"><span class="kt">byte</span></a><span class="p">,</span> <a href="https://pkg.go.dev/builtin#error"><span class="kt">error</span></a><span class="p">)</span></pre>
+  <p>MarshalText returns the text representation of an AutoStartFlag.
+<p>- If the AutoStartFlag is AutoStartOff, it returns &quot;off&quot;.
+- Otherwise, it returns &quot;on&quot;.
+<p>It always returns nil, indicating no error occurred.
+<h4 id="AutoStartFlag.String">func (AutoStartFlag) String</h4>
+  <pre class="chroma"><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <a href="#AutoStartFlag"><span class="nx">AutoStartFlag</span></a><span class="p">)</span> <span class="nf">String</span><span class="p">()</span> <a href="https://pkg.go.dev/builtin#string"><span class="kt">string</span></a></pre>
+  <p>String returns the string representation of an AutoStartFlag.
+<h4 id="AutoStartFlag.UnmarshalJSON">func (*AutoStartFlag) UnmarshalJSON</h4>
+  <pre class="chroma"><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><a href="#AutoStartFlag"><span class="nx">AutoStartFlag</span></a><span class="p">)</span> <span class="nf">UnmarshalJSON</span><span class="p">(</span><span class="nx">data</span> <span class="p">[]</span><a href="https://pkg.go.dev/builtin#byte"><span class="kt">byte</span></a><span class="p">)</span> <a href="https://pkg.go.dev/builtin#error"><span class="kt">error</span></a></pre>
+  <p>UnmarshalJSON converts the JSON data into the AutoStartFlag value.
+It leverages the pseudo.IntBool.UnmarshalJSON method to perform the actual unmarshaling.
+It returns any occurred error.
+<h4 id="AutoStartFlag.UnmarshalText">func (*AutoStartFlag) UnmarshalText</h4>
+  <pre class="chroma"><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><a href="#AutoStartFlag"><span class="nx">AutoStartFlag</span></a><span class="p">)</span> <span class="nf">UnmarshalText</span><span class="p">(</span><span class="nx">text</span> <span class="p">[]</span><a href="https://pkg.go.dev/builtin#byte"><span class="kt">byte</span></a><span class="p">)</span> <a href="https://pkg.go.dev/builtin#error"><span class="kt">error</span></a></pre>
+  <p>UnmarshalText parses the provided text and assigns the corresponding value to the receiver.
+The method converts the input text to lowercase.
+<ul>
+<li>If the text is &apos;off&apos;, it assigns AutoStartOff to the receiver.
+<li>For any other text, it assigns AutoStartOn to the receiver.
+</ul>
+<p>It always returns nil, indicating no error occurred.
+<h3 id="pkg-directories">Directories</h3>
+
+<table>
+  <tbody>
+    <tr>
+        <td><a href="pseudo">pseudo</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+</table>
+</main>
+    <hr>
+    <footer>
+      <small id="generated-by-footer">
+        Generated with <a href="https://abhinav.github.io/doc2go/">doc2go</a>
+      </small>
+    </footer>
+    <script src="../../../../_/js/permalink.js"></script></body>
+</html>

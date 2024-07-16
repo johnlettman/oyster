@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="doc2go">
+    <link href="../../../../../_/css/main.css" rel="stylesheet" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../../../../../_/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../../../../_/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../../../../_/icons/favicon-16x16.png">
+    <link rel="shortcut icon" href="../../../../../_/icons/favicon.ico"><title>pseudo</title>
+</head>
+  <body>
+    <nav>
+        <a href="../../../..">github.com</a>/<a href="../../..">johnlettman</a>/<a href="../..">oyster</a>/<a href="..">types</a>/pseudo<span class="navbar-right">
+          <a href="../../../../..">Root</a> | <a href="#pkg-index">Index</a></span>
+      </nav>
+    <main><h2 id="pkg-overview">package pseudo</h2>
+<pre class="chroma"><span class="kn">import</span> <span class="s">&#34;github.com/johnlettman/oyster/types/pseudo&#34;</span></pre>
+<h3 id="pkg-index">Index</h3>
+<ul>
+  <li><a href="#UnmarshalMessageOrStruct">func UnmarshalMessageOrStruct(data []byte, targetMessage *string, targetStruct interface{}) error</a></li>
+  <li>
+      <a href="#IntBool">type IntBool</a>
+      <ul>
+          <li><a href="#IntBool.MarshalJSON">func (b IntBool) MarshalJSON() ([]byte, error)</a></li>
+          <li><a href="#IntBool.UnmarshalJSON">func (b *IntBool) UnmarshalJSON(data []byte) error</a></li>
+          </ul>
+      </li>
+  <li>
+      <a href="#MessageStruct">type MessageStruct</a>
+      <ul>
+          <li><a href="#MessageStruct.MarshalJSON">func (ms MessageStruct[T]) MarshalJSON() ([]byte, error)</a></li>
+          <li><a href="#MessageStruct.UnmarshalJSON">func (ms *MessageStruct[T]) UnmarshalJSON(data []byte) error</a></li>
+          </ul>
+      </li>
+  </ul><h3 id="pkg-functions">Functions</h3>
+  <h3 id="UnmarshalMessageOrStruct">func UnmarshalMessageOrStruct</h3>
+    <pre class="chroma"><span class="kd">func</span> <span class="nf">UnmarshalMessageOrStruct</span><span class="p">(</span><span class="nx">data</span> <span class="p">[]</span><a href="https://pkg.go.dev/builtin#byte"><span class="kt">byte</span></a><span class="p">,</span> <span class="nx">targetMessage</span> <span class="o">*</span><a href="https://pkg.go.dev/builtin#string"><span class="kt">string</span></a><span class="p">,</span> <span class="nx">targetStruct</span> <span class="kd">interface</span><span class="p">{})</span> <a href="https://pkg.go.dev/builtin#error"><span class="kt">error</span></a></pre>
+    <p>UnmarshalMessageOrStruct will unmarshal JSON data into a target message or struct depending on the
+actual representation in the JSON data.
+This aids in conditions where the data overrides an anticipated structure with an error message.
+<h3 id="pkg-types">Types</h3>
+  <h3 id="IntBool">type IntBool</h3>
+    <pre class="chroma"><span class="kd">type</span> <span class="nx">IntBool</span> <a href="https://pkg.go.dev/builtin#bool"><span class="kt">bool</span></a></pre>
+    <p>IntBool is a custom type that represents a boolean value as an integer.
+It is used for JSON marshaling and unmarshaling purposes.
+<h4 id="IntBool.MarshalJSON">func (IntBool) MarshalJSON</h4>
+  <pre class="chroma"><span class="kd">func</span> <span class="p">(</span><span class="nx">b</span> <a href="#IntBool"><span class="nx">IntBool</span></a><span class="p">)</span> <span class="nf">MarshalJSON</span><span class="p">()</span> <span class="p">([]</span><a href="https://pkg.go.dev/builtin#byte"><span class="kt">byte</span></a><span class="p">,</span> <a href="https://pkg.go.dev/builtin#error"><span class="kt">error</span></a><span class="p">)</span></pre>
+  <p>MarshalJSON is a method that serializes the IntBool value to JSON format.
+It converts the boolean value to an integer (1 or 0), then marshals the integer to JSON.
+The method returns the marshaled JSON bytes and an error, if any.
+<h4 id="IntBool.UnmarshalJSON">func (*IntBool) UnmarshalJSON</h4>
+  <pre class="chroma"><span class="kd">func</span> <span class="p">(</span><span class="nx">b</span> <span class="o">*</span><a href="#IntBool"><span class="nx">IntBool</span></a><span class="p">)</span> <span class="nf">UnmarshalJSON</span><span class="p">(</span><span class="nx">data</span> <span class="p">[]</span><a href="https://pkg.go.dev/builtin#byte"><span class="kt">byte</span></a><span class="p">)</span> <a href="https://pkg.go.dev/builtin#error"><span class="kt">error</span></a></pre>
+  <p>UnmarshalJSON is a method that deserializes the JSON data into the IntBool value.
+It unmarshals the received JSON data into an integer value, then assigns the IntBool
+value based on whether the integer is non-zero or zero. The IntBool value is set to
+true if the integer is non-zero, and false if the integer is zero.
+The method returns an error if the unmarshaling process fails.
+<h3 id="MessageStruct">type MessageStruct</h3>
+    <pre class="chroma"><span class="kd">type</span> <span class="nx">MessageStruct</span><span class="p">[</span><span class="nx">T</span> <a href="https://pkg.go.dev/builtin#any"><span class="nx">any</span></a><span class="p">]</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span id="MessageStruct.Value"><span class="nx">Value</span></span>   <span class="o">*</span><span class="nx">T</span>
+	<span id="MessageStruct.Message"><span class="nx">Message</span></span> <a href="https://pkg.go.dev/builtin#string"><span class="kt">string</span></a>
+<span class="p">}</span></pre>
+    <p>MessageStruct represents a generic message structure that may be overridden by a string in the JSON representation.
+<h4 id="MessageStruct.MarshalJSON">func (MessageStruct[T]) MarshalJSON</h4>
+  <pre class="chroma"><span class="kd">func</span> <span class="p">(</span><span class="nx">ms</span> <a href="#MessageStruct"><span class="nx">MessageStruct</span></a><span class="p">[</span><span class="nx">T</span><span class="p">])</span> <span class="nf">MarshalJSON</span><span class="p">()</span> <span class="p">([]</span><a href="https://pkg.go.dev/builtin#byte"><span class="kt">byte</span></a><span class="p">,</span> <a href="https://pkg.go.dev/builtin#error"><span class="kt">error</span></a><span class="p">)</span></pre>
+  <p>MarshalJSON serializes the MessageStruct type to JSON representation.
+If MessageStruct has a non-empty Message or HasMessage is true,
+it marshals only the Message field as a string. Otherwise, it marshals the Value field.
+It returns a byte slice and an error.
+<h4 id="MessageStruct.UnmarshalJSON">func (*MessageStruct[T]) UnmarshalJSON</h4>
+  <pre class="chroma"><span class="kd">func</span> <span class="p">(</span><span class="nx">ms</span> <span class="o">*</span><a href="#MessageStruct"><span class="nx">MessageStruct</span></a><span class="p">[</span><span class="nx">T</span><span class="p">])</span> <span class="nf">UnmarshalJSON</span><span class="p">(</span><span class="nx">data</span> <span class="p">[]</span><a href="https://pkg.go.dev/builtin#byte"><span class="kt">byte</span></a><span class="p">)</span> <a href="https://pkg.go.dev/builtin#error"><span class="kt">error</span></a></pre>
+  <p>UnmarshalJSON deserializes JSON data into a MessageStruct pointer.
+If the JSON is a string, it assigns the string to the Message field.
+If the JSON is T, it assigns the value to the Value field.
+In case the JSON data cannot be unmarshaled into a string or T, it returns an error.
+</main>
+    <hr>
+    <footer>
+      <small id="generated-by-footer">
+        Generated with <a href="https://abhinav.github.io/doc2go/">doc2go</a>
+      </small>
+    </footer>
+    <script src="../../../../../_/js/permalink.js"></script></body>
+</html>
