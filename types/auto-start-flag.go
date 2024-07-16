@@ -15,7 +15,7 @@ import (
 // Usage of AutoStartFlag in firmware prior to v2.0.0 has unexpected behavior.
 //
 // [Ouster docs: Standby Operating Mode Examples]: https://static.ouster.dev/sensor-docs/image_route1/image_route2/sensor_operations/sensor-operations.html#standby-operating-mode-examples
-type AutoStartFlag pseudo.IntBool
+type AutoStartFlag pseudo.IntBoolJSON
 
 const (
 	AutoStartOn  AutoStartFlag = true  // Equivalent to OperatingMode "NORMAL"
@@ -47,9 +47,8 @@ func (a AutoStartFlag) GoString() string {
 }
 
 // MarshalText returns the text representation of an AutoStartFlag.
-//
-// - If the AutoStartFlag is AutoStartOff, it returns "off".
-// - Otherwise, it returns "on".
+//   - If the AutoStartFlag is AutoStartOff, it returns "off";
+//   - otherwise, it returns "on".
 //
 // It always returns nil, indicating no error occurred.
 func (a AutoStartFlag) MarshalText() ([]byte, error) {
@@ -65,11 +64,10 @@ func (a AutoStartFlag) MarshalText() ([]byte, error) {
 
 // UnmarshalText parses the provided text and assigns the corresponding value to the receiver.
 // The method converts the input text to lowercase.
-//
 //   - If the text is 'off', it assigns AutoStartOff to the receiver.
 //   - For any other text, it assigns AutoStartOn to the receiver.
 //
-// It always returns nil, indicating no error occurred.
+// It always returns nil error, indicating no error occurred.
 func (a *AutoStartFlag) UnmarshalText(text []byte) error {
 	switch strings.ToLower(string(text)) {
 	default:
@@ -83,15 +81,15 @@ func (a *AutoStartFlag) UnmarshalText(text []byte) error {
 	return nil
 }
 
-// MarshalJSON converts AutoStartFlag to JSON format using pseudo.IntBool.MarshalJSON method.
+// MarshalJSON converts AutoStartFlag to JSON format using pseudo.IntBoolJSON.MarshalJSON method.
 // It returns the JSON bytes and any occurred error.
 func (a AutoStartFlag) MarshalJSON() ([]byte, error) {
-	return (*pseudo.IntBool)(&a).MarshalJSON()
+	return (*pseudo.IntBoolJSON)(&a).MarshalJSON()
 }
 
 // UnmarshalJSON converts the JSON data into the AutoStartFlag value.
-// It leverages the pseudo.IntBool.UnmarshalJSON method to perform the actual unmarshaling.
+// It leverages the pseudo.IntBoolJSON.UnmarshalJSON method to perform the actual unmarshaling.
 // It returns any occurred error.
 func (a *AutoStartFlag) UnmarshalJSON(data []byte) error {
-	return (*pseudo.IntBool)(a).UnmarshalJSON(data)
+	return (*pseudo.IntBoolJSON)(a).UnmarshalJSON(data)
 }
