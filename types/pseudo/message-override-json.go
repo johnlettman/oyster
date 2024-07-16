@@ -6,30 +6,30 @@ import (
 	"strings"
 )
 
-// MessageStruct represents a generic message structure that may be overridden by a string in the JSON representation.
-type MessageStruct[T any] struct {
+// MessageOverrideJSON represents a generic message structure that may be overridden by a string in the JSON representation.
+type MessageOverrideJSON[T any] struct {
 	Value   *T
 	Message string
 }
 
-// MarshalJSON serializes the MessageStruct type to JSON representation.
-// If MessageStruct has a non-empty Message or HasMessage is true,
+// MarshalJSON serializes the MessageOverrideJSON type to JSON representation.
+// If MessageOverrideJSON has a non-empty Message or HasMessage is true,
 // it marshals only the Message field as a string. Otherwise, it marshals the Value field.
 // It returns a byte slice and an error.
-func (ms MessageStruct[T]) MarshalJSON() ([]byte, error) {
-	if strings.TrimSpace(ms.Message) != "" {
-		return json.Marshal(ms.Message)
+func (m MessageOverrideJSON[T]) MarshalJSON() ([]byte, error) {
+	if strings.TrimSpace(m.Message) != "" {
+		return json.Marshal(m.Message)
 	}
 
-	return json.Marshal(ms.Value)
+	return json.Marshal(m.Value)
 }
 
-// UnmarshalJSON deserializes JSON data into a MessageStruct pointer.
+// UnmarshalJSON deserializes JSON data into a MessageOverrideJSON pointer.
 // If the JSON is a string, it assigns the string to the Message field.
 // If the JSON is T, it assigns the value to the Value field.
 // In case the JSON data cannot be unmarshaled into a string or T, it returns an error.
-func (ms *MessageStruct[T]) UnmarshalJSON(data []byte) error {
-	err := UnmarshalMessageOrStruct(data, &ms.Message, &ms.Value)
+func (m *MessageOverrideJSON[T]) UnmarshalJSON(data []byte) error {
+	err := UnmarshalMessageOrStruct(data, &m.Message, &m.Value)
 	if err != nil {
 		return err
 	}
