@@ -30,9 +30,10 @@ jobs:
         if: github.ref == 'refs/heads/devel'
         uses: peaceiris/actions-gh-pages@v2.3.1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: docs
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./docs
+          commit_message: "Pages: ${{ github.event.head_commit.message }}"
       - name: Upload documentation
         uses: actions/upload-artifact@v1
         with:
