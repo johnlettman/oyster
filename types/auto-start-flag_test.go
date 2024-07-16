@@ -102,7 +102,7 @@ func TestAutoStartFlag_MarshalJSON(t *testing.T) {
 	}
 }
 
-func TestIntBool_UnmarshalJSON(t *testing.T) {
+func TestAutoStartFlag_UnmarshalJSON(t *testing.T) {
 	type TestCase struct {
 		name    string
 		json    string
