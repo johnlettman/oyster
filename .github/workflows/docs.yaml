@@ -32,9 +32,6 @@ jobs:
           cache: true
       - name: Setup Node
         uses: actions/setup-node@v4
-        with:
-          cache: 'npm'
-          cache-dependency-path: package-lock.json
       - name: Generate documentation
         run: |
           npm install pagefind --prefix .
