@@ -1,0 +1,71 @@
+on:
+  push:
+    branches: [main, devel]
+  pull_request:
+    branches: [main]
+    paths-ignore:
+      - "**/*.md"
+      - "**/*.py"
+      - "LICENSE"
+  workflow_dispatch:
+    inputs:
+      head:
+        description: "Git commit to publish documentation for."
+        required: true
+        type: string
+
+jobs:
+  build:
+    name: Build documentation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 0
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+      - name: Setup Node
+        uses: actions/setup-node@v4
+      - name: Generate documentation
+        run: |
+          npm install pagefind --prefix .
+          export PAGEFIND="./node_modules/.bin/pagefind"
+          
+          go install go.abhg.dev/doc2go@latest
+          doc2go -out docs -pagefind="${PAGEFIND}" ./...
+      - name: Upload documentation
+        uses: actions/upload-artifact@v1
+        with:
+          name: documentation
+          path: docs
+      - name: Upload pages
+        if: github.ref == 'refs/heads/devel'
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: docs
+
+  publish:
+    name: Publish pages website
+    needs: build
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub pages
+        if: github.ref == 'refs/heads/devel'
+        id: deployment
+        uses: actions/deploy-pages@v1
+

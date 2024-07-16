@@ -1,0 +1,27 @@
+on:
+  push:
+    branches: [ main, devel ]
+  pull_request:
+    branches: [ main ]
+    paths-ignore:
+      - "**/*.md"
+      - "**/*.py"
+      - "LICENSE"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Test
+        uses: robherley/go-test-action@v0
+        with:
+          testArguments: -covermode=atomic -coverprofile=coverage.out ./...
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
