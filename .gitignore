@@ -6,6 +6,13 @@ samples/
 # Generated docs
 docs/
 
+### Node.js
+# Logs
+npm-debug.log*
+
+# Dependency directories
+node_modules/
+
 ### JetBrains
 # User-specific stuff
 .idea/**/workspace.xml
