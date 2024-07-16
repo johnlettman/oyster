@@ -35,8 +35,10 @@ jobs:
       - name: Generate documentation
         run: |
           npm install pagefind
+          export PAGEFIND="${HOME}/node_modules/.bin/pagefind"
+          
           go install go.abhg.dev/doc2go@latest
-          doc2go -out docs -pagefind ./...
+          doc2go -out docs -pagefind="${PAGEFIND}" ./...
       - name: Upload documentation
         uses: actions/upload-artifact@v1
         with:
