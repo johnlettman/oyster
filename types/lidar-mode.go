@@ -7,13 +7,9 @@ import (
 // LIDARMode represents the horizontal resolution and rotation rate of the sensor.
 // The effective range of the sensor is increased by 15-20% for every halving of the number of points gathered.
 // For example, LidarMode512x10 has a 15-20% longer range than LidarMode512x20.
+// For additional information, refer to [lidar_mode].
 //
-// LIDARMode implements encoding/json.Marshaller and encoding/json.Unmarshaller
-// to simplify loading from ouster_meta.json
-//
-// For additional information, refer to [Ouster docs: lidar_mode].
-//
-// [Ouster docs: lidar_mode]: https://static.ouster.dev/sensor-docs/image_route1/image_route2/common_sections/API/sensor_configuration_description.html?highlight=512x10#lidar-mode
+// [lidar_mode]: https://static.ouster.dev/sensor-docs/image_route1/image_route2/common_sections/API/sensor_configuration_description.html?highlight=512x10#lidar-mode
 type LIDARMode int
 
 const (
@@ -26,59 +22,65 @@ const (
 	LidarMode4096x5                   // 5 scans of 4096 columns per second
 )
 
-var lidarModeGoKV = map[LIDARMode]string{
-	LidarModeUnknown: "LidarModeUnknown",
-	LidarMode512x10:  "LidarMode512x10",
-	LidarMode512x20:  "LidarMode512x20",
-	LidarMode1024x10: "LidarMode1024x10",
-	LidarMode1024x20: "LidarMode1024x20",
-	LidarMode2048x10: "LidarMode2048x10",
-	LidarMode4096x5:  "LidarMode4096x5",
-}
+var (
+	// lidarModeStringKV maps LIDARMode values to their respective string representations.
+	lidarModeStringKV = map[LIDARMode]string{
+		LidarModeUnknown: "unknown",
+		LidarMode512x10:  "512x10",
+		LidarMode512x20:  "512x20",
+		LidarMode1024x10: "1024x10",
+		LidarMode1024x20: "1024x20",
+		LidarMode2048x10: "2048x10",
+		LidarMode4096x5:  "4096x5",
+	}
 
-// lidarModeKV maps LIDARMode values to their respective string representations.
-var lidarModeKV = map[LIDARMode]string{
-	LidarModeUnknown: "unknown",
-	LidarMode512x10:  "512x10",
-	LidarMode512x20:  "512x20",
-	LidarMode1024x10: "1024x10",
-	LidarMode1024x20: "1024x20",
-	LidarMode2048x10: "2048x10",
-	LidarMode4096x5:  "4096x5",
-}
+	// lidarModeGoStringKV maps LIDARMode values to their respective Go syntax representations.
+	lidarModeGoStringKV = map[LIDARMode]string{
+		LidarModeUnknown: "LidarModeUnknown",
+		LidarMode512x10:  "LidarMode512x10",
+		LidarMode512x20:  "LidarMode512x20",
+		LidarMode1024x10: "LidarMode1024x10",
+		LidarMode1024x20: "LidarMode1024x20",
+		LidarMode2048x10: "LidarMode2048x10",
+		LidarMode4096x5:  "LidarMode4096x5",
+	}
 
-// lidarModeVK is a variable that stores the reverse mapping of the lidarModeKV map.
-// It maps string representations of LIDARMode values to their respective LIDARMode values.
-var lidarModeVK = util.ReverseMap(lidarModeKV)
+	// lidarModeTextKV maps LIDARMode values to their respective text representations.
+	lidarModeTextKV = lidarModeStringKV
+
+	// lidarModeTextVK is a variable that stores the reverse mapping of the lidarModeStringKV map.
+	// It maps string representations of LIDARMode values to their respective LIDARMode values.
+	lidarModeTextVK = util.ReverseMap(lidarModeTextKV)
+)
 
 // String returns the string representation of a LIDARMode value.
 // If no match is found, it returns "unknown" as the default string representation.
 func (m LIDARMode) String() string {
-	if s, ok := lidarModeKV[m]; ok {
+	if s, ok := lidarModeStringKV[m]; ok {
 		return s
 	}
 
-	return lidarModeKV[LidarModeUnknown]
+	return lidarModeStringKV[LidarModeUnknown]
 }
 
 // GoString returns the Go syntax representation of a LIDARMode value.
 // If no match is found, it returns "LidarModeUnknown" as the default string representation.
 func (m LIDARMode) GoString() string {
-	if s, ok := lidarModeGoKV[m]; ok {
+	if s, ok := lidarModeGoStringKV[m]; ok {
 		return s
 	}
 
-	return lidarModeGoKV[LidarModeUnknown]
+	return lidarModeGoStringKV[LidarModeUnknown]
 }
 
 // MarshalText returns the text representation of a LIDARMode value.
-//   - If the LIDARMode has a matching string representation in the lidarModeKV map,
+//   - If the LIDARMode has a matching string representation in the lidarModeStringKV map,
 //     it returns the byte slice of that string representation.
 //   - If no match is found, it returns nil.
 //
 // The error returned is always nil.
 func (m LIDARMode) MarshalText() ([]byte, error) {
-	if s, ok := lidarModeKV[m]; ok {
+	if s, ok := lidarModeTextKV[m]; ok {
 		return []byte(s), nil
 	}
 
@@ -86,13 +88,13 @@ func (m LIDARMode) MarshalText() ([]byte, error) {
 }
 
 // UnmarshalText unmarshals the given text into a LIDARMode value.
-//   - If the string representation of the text exists in the lidarModeVK map,
+//   - If the string representation of the text exists in the lidarModeTextVK map,
 //     it assigns the corresponding LIDARMode value to the receiver pointer.
 //   - Otherwise, it assigns LidarModeUnknown to the receiver pointer.
 //
 // The error returned is always nil.
 func (m *LIDARMode) UnmarshalText(text []byte) error {
-	if mode, ok := lidarModeVK[string(text)]; ok {
+	if mode, ok := lidarModeTextVK[string(text)]; ok {
 		*m = mode
 	} else {
 		*m = LidarModeUnknown
