@@ -52,7 +52,7 @@ const (
 )
 
 var (
-	// multipurposeIOModeTextKV maps MultipurposeIOMode values to their string representations.
+	// multipurposeIOModeStringKV maps MultipurposeIOMode values to their string representations.
 	multipurposeIOModeStringKV = map[MultipurposeIOMode]string{
 		MultipurposeOff:                          "off",
 		MultipurposeInputNMEAUART:                "input from NMEA UART",
@@ -62,7 +62,7 @@ var (
 		MultipurposeOutputFromEncoderAngle:       "output from encoder angle",
 	}
 
-	// multipurposeIOModeTextKV maps MultipurposeIOMode values to their Go syntax representations.
+	// multipurposeIOModeGoStringKV maps MultipurposeIOMode values to their Go syntax representations.
 	multipurposeIOModeGoStringKV = map[MultipurposeIOMode]string{
 		MultipurposeOff:                          "MultipurposeOff",
 		MultipurposeInputNMEAUART:                "MultipurposeInputNMEAUART",
