@@ -1,10 +1,16 @@
 package types
 
 import (
+	"encoding"
 	"github.com/brianvoe/gofakeit/v7"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
+
+func TestLIDARMode_TextInterfaces(t *testing.T) {
+	assert.Implements(t, (*encoding.TextMarshaler)(nil), new(LIDARMode))
+	assert.Implements(t, (*encoding.TextUnmarshaler)(nil), new(LIDARMode))
+}
 
 func TestLIDARMode_String(t *testing.T) {
 	type TestCase struct {

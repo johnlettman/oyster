@@ -1,10 +1,16 @@
 package types
 
 import (
+	"encoding"
 	"github.com/brianvoe/gofakeit/v7"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
+
+func TestAutoStartFlag_TextInterfaces(t *testing.T) {
+	assert.Implements(t, (*encoding.TextMarshaler)(nil), new(AutoStartFlag))
+	assert.Implements(t, (*encoding.TextUnmarshaler)(nil), new(AutoStartFlag))
+}
 
 func TestAutoStartFlag_String(t *testing.T) {
 	type TestCase struct {

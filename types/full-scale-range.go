@@ -6,11 +6,10 @@ import (
 
 // FullScaleRange represents whether modification of the onboard gyroscope or accelerometer
 // has been enabled with an extended programmable scale.
+// For additional information, refer to [gyro_fsr] and [accel_fsr].
 //
-// For additional information, refer to [Ouster docs: gyro_fsr] and [Ouster docs: accel_fsr].
-//
-// [Ouster docs: gyro_fsr]: https://static.ouster.dev/sensor-docs/image_route1/image_route2/common_sections/API/sensor_configuration_description.html#gyro-fsr
-// [Ouster docs: accel_fsr]: https://static.ouster.dev/sensor-docs/image_route1/image_route2/common_sections/API/sensor_configuration_description.html#accel-fsr
+// [gyro_fsr]: https://static.ouster.dev/sensor-docs/image_route1/image_route2/common_sections/API/sensor_configuration_description.html#gyro-fsr
+// [accel_fsr]: https://static.ouster.dev/sensor-docs/image_route1/image_route2/common_sections/API/sensor_configuration_description.html#accel-fsr
 type FullScaleRange uint8
 
 const (
