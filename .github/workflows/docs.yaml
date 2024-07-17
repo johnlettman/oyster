@@ -22,7 +22,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Setup Go
@@ -40,13 +40,13 @@ jobs:
           go install go.abhg.dev/doc2go@latest
           doc2go -out docs -pagefind="${PAGEFIND}" ./...
       - name: Upload documentation
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: documentation
           path: docs
       - name: Upload pages
         if: github.ref == 'refs/heads/devel'
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           path: docs
 
@@ -67,5 +67,5 @@ jobs:
       - name: Deploy to GitHub pages
         if: github.ref == 'refs/heads/devel'
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
 
