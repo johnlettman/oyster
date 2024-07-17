@@ -1,11 +1,22 @@
 package types
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/brianvoe/gofakeit/v7"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
+
+func TestColumnWindow_StringInterfaces(t *testing.T) {
+	assert.Implements(t, (*fmt.Stringer)(nil), new(ColumnWindow))
+	assert.Implements(t, (*fmt.GoStringer)(nil), new(ColumnWindow))
+}
+
+func TestColumnWindow_JSONInterfaces(t *testing.T) {
+	assert.Implements(t, (*json.Marshaler)(nil), new(ColumnWindow))
+	assert.Implements(t, (*json.Unmarshaler)(nil), new(ColumnWindow))
+}
 
 func TestColumnWindow_String(t *testing.T) {
 	a, b := gofakeit.Int(), gofakeit.Int()
