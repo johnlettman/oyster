@@ -55,3 +55,10 @@ func TestColumnWindow_UnmarshalJSON(t *testing.T) {
 	assert.NoError(t, err, "it should not error")
 	assert.Equal(t, ColumnWindow{a, b}, cw, "it should assign the correct values")
 }
+
+func TestColumnWindow_Zero(t *testing.T) {
+	cw := ColumnWindow{}
+
+	assert.Zero(t, cw, "it should be zero-initialized")
+	assert.True(t, cw.Zero(), "it should return true for zero-initialized ColumnWindow")
+}

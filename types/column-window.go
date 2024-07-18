@@ -31,3 +31,8 @@ func (c ColumnWindow) MarshalJSON() ([]byte, error) {
 func (c *ColumnWindow) UnmarshalJSON(data []byte) error {
 	return (*pseudo.ListTupleJSON[int])(c).UnmarshalJSON(data)
 }
+
+// Zero returns true if the values of V1 and V2 in the ColumnWindow are both equal to 0.
+func (c ColumnWindow) Zero() bool {
+	return c.V1 == 0 && c.V2 == 0
+}
