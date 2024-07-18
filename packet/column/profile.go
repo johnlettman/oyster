@@ -1,4 +1,4 @@
-package channel
+package column
 
 type Profile struct {
 	Fields   Entries

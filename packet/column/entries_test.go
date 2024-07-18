@@ -1,8 +1,8 @@
-package channel
+package column
 
 import (
 	"fmt"
-	"github.com/johnlettman/oyster/packet/channel/field"
+	"github.com/johnlettman/oyster/packet/column/field"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
