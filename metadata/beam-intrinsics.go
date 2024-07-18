@@ -15,3 +15,7 @@ type BeamIntrinsics struct {
 	// It is a 4x4 matrix stored in row-major order in a 16-element float64 array.
 	BeamToLIDARTransform [16]float64 `json:"beam_to_lidar_transform,omitempty"`
 }
+
+// BeamIntrinsicsURI is the constant variable that represents the URI path for accessing
+// the metadata of beam intrinsics in the sensor HTTP API.
+const BeamIntrinsicsURI string = "/api/v1/sensor/metadata/beam_intrinsics"
