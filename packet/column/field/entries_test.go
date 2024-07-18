@@ -1,8 +1,7 @@
-package column
+package field
 
 import (
 	"fmt"
-	"github.com/johnlettman/oyster/packet/column/field"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -13,11 +12,11 @@ func TestEntries_StringInterfaces(t *testing.T) {
 }
 
 func TestEntries_String(t *testing.T) {
-	f := field.Reflectivity
+	f := Reflectivity
 	fString := fmt.Sprintf("%s:", f)
 
-	s := field.Structure{
-		Type:      field.TypeUint8,
+	s := Structure{
+		Type:      TypeUint8,
 		Offset:    1,
 		ValueMask: 0xF,
 		Shift:     32,
@@ -31,11 +30,11 @@ func TestEntries_String(t *testing.T) {
 }
 
 func TestEntries_GoString(t *testing.T) {
-	f := field.Reflectivity
+	f := Reflectivity
 	fString := fmt.Sprintf("%#v:", f)
 
-	s := field.Structure{
-		Type:      field.TypeUint8,
+	s := Structure{
+		Type:      TypeUint8,
 		Offset:    1,
 		ValueMask: 0xF,
 		Shift:     32,

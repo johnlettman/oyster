@@ -1,4 +1,4 @@
-package column
+package field
 
 type Profile struct {
 	Fields   Entries

@@ -1,12 +1,11 @@
-package column
+package field
 
 import (
 	"fmt"
-	"github.com/johnlettman/oyster/packet/column/field"
 	"strings"
 )
 
-type Entries map[field.Field]field.Structure
+type Entries map[Field]Structure
 
 // String returns the string representation of an Entries value.
 func (e Entries) String() string {

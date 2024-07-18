@@ -1,7 +1,6 @@
 package profile
 
 import (
-	"github.com/johnlettman/oyster/packet/column"
 	"github.com/johnlettman/oyster/packet/column/field"
 	"github.com/johnlettman/oyster/util"
 )
@@ -43,9 +42,9 @@ const (
 	LIDARProfileFuSaTwoWordPixel
 )
 
-var lidarProfileChannelProfileVK = map[LIDARProfile]column.Profile{
+var lidarProfileChannelProfileVK = map[LIDARProfile]field.Profile{
 	LIDARProfileLegacy: {
-		Fields: column.Entries{
+		Fields: field.Entries{
 			field.Flags:        {field.TypeUint8, 3, 0, 4},
 			field.Reflectivity: {field.TypeUint16, 4, 0, 0},
 			field.Signal:       {field.TypeUint16, 6, 0, 0},
@@ -57,7 +56,7 @@ var lidarProfileChannelProfileVK = map[LIDARProfile]column.Profile{
 		DataSize: 12,
 	},
 	LIDARProfileDualReturns: {
-		Fields: column.Entries{
+		Fields: field.Entries{
 			field.Range:         {field.TypeUint32, 0, 0x0007FFFF, 0},
 			field.Flags:         {field.TypeUint8, 2, 0b11111000, 3},
 			field.Reflectivity:  {field.TypeUint8, 3, 0, 0},
@@ -75,7 +74,7 @@ var lidarProfileChannelProfileVK = map[LIDARProfile]column.Profile{
 		DataSize: 16,
 	},
 	LIDARProfileSingleReturns: {
-		Fields: column.Entries{
+		Fields: field.Entries{
 			field.Range:        {field.TypeUint32, 0, 0x0007ffff, 0},
 			field.Flags:        {field.TypeUint8, 2, 0b11111000, 3},
 			field.Reflectivity: {field.TypeUint8, 4, 0, 0},
@@ -88,7 +87,7 @@ var lidarProfileChannelProfileVK = map[LIDARProfile]column.Profile{
 		DataSize: 12,
 	},
 	LIDARProfileSingleReturnsLowDataRate: {
-		Fields: column.Entries{
+		Fields: field.Entries{
 			field.Range:        {field.TypeUint32, 0, 0x7fff, -3},
 			field.Flags:        {field.TypeUint8, 1, 0b10000000, 7},
 			field.Reflectivity: {field.TypeUint8, 2, 0, 0},
@@ -98,7 +97,7 @@ var lidarProfileChannelProfileVK = map[LIDARProfile]column.Profile{
 		DataSize: 4,
 	},
 	LIDARProfileFuSaTwoWordPixel: {
-		Fields: column.Entries{
+		Fields: field.Entries{
 			field.Range:         {field.TypeUint32, 0, 0x7fff, -3},
 			field.Flags:         {field.TypeUint8, 1, 0b10000000, 7},
 			field.Reflectivity:  {field.TypeUint8, 2, 0xff, 0},
@@ -192,7 +191,7 @@ func (p *LIDARProfile) UnmarshalText(text []byte) error {
 // ColumnProfile returns the column profile associated with the LIDARProfile value.
 // If the LIDARProfile value is recognized, the corresponding column profile is returned.
 // Otherwise, the column profile for LIDARProfileLegacy is returned.
-func (p LIDARProfile) ColumnProfile() column.Profile {
+func (p LIDARProfile) ColumnProfile() field.Profile {
 	if c, ok := lidarProfileChannelProfileVK[p]; ok {
 		return c
 	} else {
@@ -202,7 +201,7 @@ func (p LIDARProfile) ColumnProfile() column.Profile {
 
 // ColumnFields returns the corresponding Field entries based on the value of LIDARProfile.
 // If the LIDARProfile value is invalid, it returns nil.
-func (p LIDARProfile) ColumnFields() column.Entries {
+func (p LIDARProfile) ColumnFields() field.Entries {
 	return p.ColumnProfile().Fields
 }
 
