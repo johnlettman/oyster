@@ -12,7 +12,9 @@ require (
 	github.com/gookit/goutil v0.6.15
 	github.com/johnlettman/buffergenerics v0.0.0-20240713034920-8ec5b0a7ac46
 	github.com/stretchr/testify v1.9.0
+	github.com/ungerik/go3d v0.0.0-20240502073936-1137f6adf7e9
 	golang.org/x/exp v0.0.0-20240707233637-46b078467d37
+	gonum.org/v1/gonum v0.15.0
 )
 
 require (
