@@ -14,8 +14,7 @@ func (e Entries) String() string {
 	s.WriteString("Entries:\n")
 
 	for k, v := range e {
-		ks := fmt.Sprintf("%s:", k.String())
-		s.WriteString(fmt.Sprintf("\t%-14s %v,\n", ks, v))
+		s.WriteString(fmt.Sprintf("\t%-14s %v,\n", k.String()+":", v))
 	}
 
 	return s.String()
@@ -27,8 +26,7 @@ func (e Entries) GoString() string {
 	s.WriteString("field.Entries{\n")
 
 	for k, v := range e {
-		ks := fmt.Sprintf("%#v:", k)
-		s.WriteString(fmt.Sprintf("\t%-14s %#v,\n", ks, v))
+		s.WriteString(fmt.Sprintf("\t%-14s %#v,\n", k.GoString()+":", v))
 	}
 
 	s.WriteRune('}')
