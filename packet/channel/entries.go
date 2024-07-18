@@ -1,11 +1,12 @@
-package field
+package channel
 
 import (
 	"fmt"
+	"github.com/johnlettman/oyster/packet/channel/field"
 	"strings"
 )
 
-type Entries map[Field]Structure
+type Entries map[field.Field]field.Structure
 
 // String returns the string representation of an Entries value.
 func (e Entries) String() string {

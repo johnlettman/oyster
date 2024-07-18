@@ -1,7 +1,8 @@
-package field
+package channel
 
 import (
 	"fmt"
+	"github.com/johnlettman/oyster/packet/channel/field"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -12,11 +13,11 @@ func TestEntries_StringInterfaces(t *testing.T) {
 }
 
 func TestEntries_String(t *testing.T) {
-	f := Reflectivity
+	f := field.Reflectivity
 	fString := fmt.Sprintf("%s:", f)
 
-	s := Structure{
-		Type:      TypeUint8,
+	s := field.Structure{
+		Type:      field.TypeUint8,
 		Offset:    1,
 		ValueMask: 0xF,
 		Shift:     32,
@@ -30,11 +31,11 @@ func TestEntries_String(t *testing.T) {
 }
 
 func TestEntries_GoString(t *testing.T) {
-	f := Reflectivity
+	f := field.Reflectivity
 	fString := fmt.Sprintf("%#v:", f)
 
-	s := Structure{
-		Type:      TypeUint8,
+	s := field.Structure{
+		Type:      field.TypeUint8,
 		Offset:    1,
 		ValueMask: 0xF,
 		Shift:     32,
