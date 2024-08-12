@@ -1,15 +1,18 @@
 <div align="center">
-  <h1>🦪 OYSTER<br>
-  <sub><sup>An unofficial cross-platform Go toolkit for Ouster LiDAR sensors</sup></sub></h1>
-</div>
+    <h1>
+    🦪 OYSTER<br>
+    <sub><sup>
+        An unofficial cross-platform Rust toolkit for Ouster LIDAR sensors
+    </sup></sub>
+    </h1>
 
 [![License][shield-license]][url-license]
-[![Go version][shield-gomod]][url-gomod]
 ![Test Results][shield-test]
 [![Code Coverage][shield-codecov]][url-codecov]
 
+</div>
 
-# Work in progress
+WORK IN PROGRESS
 
 ## Disclaimer
 This is not an official library by the manufacturer. 
@@ -20,10 +23,9 @@ See [LICENSE](LICENSE) for more information
 
 
 [shield-license]: https://img.shields.io/github/license/johnlettman/oyster?style=for-the-badge
-[shield-gomod]: https://img.shields.io/github/go-mod/go-version/johnlettman/oyster?style=for-the-badge
-[shield-test]: https://img.shields.io/github/actions/workflow/status/johnlettman/oyster/ci.yaml?style=for-the-badge&label=Tests
-[shield-codecov]: https://img.shields.io/codecov/c/github/johnlettman/oyster?style=for-the-badge
+[url-license]: ./LICENSE
 
-[url-gomod]: go.mod
-[url-license]: LICENSE
+[shield-test]: https://img.shields.io/github/actions/workflow/status/johnlettman/oyster/ci.yaml?style=for-the-badge&label=Tests
+
+[shield-codecov]: https://img.shields.io/codecov/c/github/johnlettman/oyster?style=for-the-badge
 [url-codecov]: https://app.codecov.io/gh/johnlettman/oyster
