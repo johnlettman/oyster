@@ -1,6 +1,6 @@
 version: 2
 updates:
-  - package-ecosystem: gomod
+  - package-ecosystem: cargo
     directory: /
     schedule:
       interval: daily
@@ -9,7 +9,5 @@ updates:
     directory: /
     schedule:
       interval: daily
-    labels:
-      - "CI/CD"
     commit-message:
-      prefix: "ci: "
+      prefix: "[no ci] "
