@@ -1,5 +1,4 @@
-#[derive(Debug, modular_bitfield::BitfieldSpecifier, Eq, PartialEq, Copy, Clone)]
-#[bits(1)]
+#[derive(Debug, Eq, PartialEq, Copy, Clone)]
 pub enum Status {
     Valid = 0x1,
     Invalid = 0x0,

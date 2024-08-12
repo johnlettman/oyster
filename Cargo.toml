@@ -36,6 +36,7 @@ pnet = "0.35.0"
 libc = "0.2.155"
 derive-new = "0.6"
 num-derive = "0.4"
+num-traits = "0.2"
 test-log = "0.2"
 
 [dev-dependencies]

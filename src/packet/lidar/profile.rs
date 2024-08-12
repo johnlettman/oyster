@@ -45,12 +45,9 @@ pub enum Profile {
     FuSaTwoWordPixel,
 }
 
-impl Profile {
-    pub const DEFAULT: Self = Self::Legacy;
-}
 
 impl Default for Profile {
     fn default() -> Self {
-        Self::DEFAULT
+        Self::Legacy
     }
 }

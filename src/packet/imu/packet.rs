@@ -10,7 +10,6 @@ use binrw::prelude::*;
 ///
 /// [IMU Data Format]: https://static.ouster.dev/sensor-docs/image_route1/image_route3/sensor_data/sensor-data.html#imu-data-format
 #[derive(Debug, BinRead, BinWrite, Serialize, Deserialize, PartialEq)]
-#[brw()]
 pub struct Packet {
     /// Timestamp of the monotonic system time since boot in ns.
     diagnostic_system_time: u64,

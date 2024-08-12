@@ -1,7 +1,5 @@
 #![crate_type = "lib"]
 
-use const_format::concatcp;
-use pyo3::indoc::concatdoc;
 use pyo3::prelude::*;
 
 mod build;

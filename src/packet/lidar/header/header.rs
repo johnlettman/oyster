@@ -46,7 +46,6 @@ use crate::packet::lidar::header::{AlertFlags, PacketType, SensorInfo, Status};
 /// ```
 #[derive(Debug, BinRead, BinWrite, Clone, Eq, PartialEq)]
 #[brw(little)]
-#[cfg_attr(feature = "pyo3", pyclass)]
 pub struct Header {
     /// Identifies LIDAR data vs. other packets in stream.
     /// The value is `0x1` for LIDAR packets.

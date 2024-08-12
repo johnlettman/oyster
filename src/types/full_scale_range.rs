@@ -1,6 +1,7 @@
 use std::fmt::{Display, Formatter};
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Eq, PartialEq, serde::Serialize, serde::Deserialize, Copy, Clone)]
+#[derive(Debug, Eq, PartialEq, Serialize, Deserialize, Copy, Clone)]
 #[serde(rename_all = "UPPERCASE")]
 pub enum FullScaleRange {
     Normal,

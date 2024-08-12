@@ -124,7 +124,7 @@ pub struct ConfigParams {
     ///
     /// [`nmea_baud_rate`]: https://static.ouster.dev/sensor-docs/image_route1/image_route2/common_sections/API/sensor_configuration_description.html#nmea-baud-rate
     #[serde(default = "ConfigParams::default_nmea_baud_rate")]
-    nmea_baud_rate: NmeaBaudRate,
+    nmea_baud_rate: BaudRate,
 
     /// Leap seconds that will be added to the UDP timestamp.
     ///
@@ -293,7 +293,7 @@ impl ConfigParams {
 
     pub const DEFAULT_NMEA_IN_POLARITY: Polarity = Polarity::ActiveHigh;
     pub const DEFAULT_NMEA_IGNORE_VALID_CHAR: bool = false;
-    pub const DEFAULT_NMEA_BAUD_RATE: NmeaBaudRate = NmeaBaudRate::Baud9600;
+    pub const DEFAULT_NMEA_BAUD_RATE: BaudRate = BaudRate::X9600;
     pub const DEFAULT_NMEA_LEAP_SECONDS: u32 = 0;
 
     pub const DEFAULT_SIGNAL_MULTIPLIER: f64 = 1.0;
@@ -338,7 +338,7 @@ impl ConfigParams {
     fn default_nmea_ignore_valid_char() -> bool {
         Self::DEFAULT_NMEA_IGNORE_VALID_CHAR
     }
-    fn default_nmea_baud_rate() -> NmeaBaudRate {
+    fn default_nmea_baud_rate() -> BaudRate {
         Self::DEFAULT_NMEA_BAUD_RATE
     }
     fn default_nmea_leap_seconds() -> u32 {

@@ -4,9 +4,6 @@ use modular_bitfield::prelude::*;
 /// Represents the header metadata, which contains Initialization ID and Serial Number.
 #[bitfield(bits = 64)]
 #[derive(Debug, BinRead, BinWrite, Clone, Copy, Eq, PartialEq)]
-#[br(map = Self::from_bytes)]
-#[bw(map = |&x| Self::into_bytes(x))]
-#[cfg_attr(feature = "pyo3", pyclass)]
 pub struct SensorInfo {
     /// Updates on every reinitialization, which may be triggered by the
     /// user or an error, and every reboot.

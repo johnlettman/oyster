@@ -1,3 +1,5 @@
+use std::fmt::{Display, Formatter};
+
 #[derive(Debug, serde::Serialize, serde::Deserialize, Eq, PartialEq, Copy, Clone)]
 pub enum TimestampMode {
     /// A free-running counter based on the sensor's internal oscillator.
@@ -25,4 +27,37 @@ pub enum TimestampMode {
     /// It is reported at nanosecond resolution, but the minimum increment varies.
     #[serde(rename = "TIME_FROM_PTP_1588")]
     TimeFromFromPtp1588,
+}
+
+impl Display for TimestampMode {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", match *self {
+            Self::TimeFromInternalOscillator => "time from internal oscillator",
+            Self::TimeFromSyncPulseIn => "time from SYNC_PULSE_IN",
+            Self::TimeFromFromPtp1588 => "time from PTP-1588"
+        })
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    use test_log::test;
+    use log::info;
+
+    #[test]
+    fn test_display() {
+        let cases = vec![
+            (TimestampMode::TimeFromInternalOscillator, "time from internal oscillator"),
+            (TimestampMode::TimeFromSyncPulseIn, "time from SYNC_PULSE_IN"),
+            (TimestampMode::TimeFromFromPtp1588, "time from PTP-1588")
+        ];
+
+        for (mode, want) in cases {
+            info!("Displaying {mode:?}, expecting {want:?}");
+            let got = format!("{mode}");
+            assert_eq!(want, got);
+        }
+    }
 }

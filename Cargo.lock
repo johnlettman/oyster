@@ -933,6 +933,7 @@ dependencies = [
  "modular-bitfield",
  "nalgebra",
  "num-derive",
+ "num-traits",
  "once_cell",
  "pcap",
  "phf",

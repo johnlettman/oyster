@@ -55,6 +55,12 @@ impl LidarMode {
     }
 }
 
+impl Default for LidarMode {
+    fn default() -> Self {
+        Self::Scan1024x10
+    }
+}
+
 impl Display for LidarMode {
     fn fmt(&self, f: &mut Formatter) -> Result {
         write!(
@@ -72,8 +78,49 @@ impl Display for LidarMode {
     }
 }
 
-impl Default for LidarMode {
-    fn default() -> Self {
-        Self::Scan1024x10
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    use test_log::test;
+    use log::info;
+
+    #[test]
+    fn test_columns() {
+        let cases = vec![
+            (LidarMode::Scan512x10, 512),
+            (LidarMode::Scan512x20, 512),
+            (LidarMode::Scan1024x10, 1024),
+            (LidarMode::Scan1024x20, 1024),
+            (LidarMode::Scan2048x10, 2048),
+            (LidarMode::Scan4096x5, 4096)
+        ];
+
+        for (mode, want) in cases {
+            info!("Getting columns for {mode:?}, expecting {want:?}");
+            let got = mode.columns();
+            assert_eq!(want, got);
+        }
     }
+
+    #[test]
+    fn test_frequency() {
+        let cases = vec![
+            (LidarMode::Scan512x10, 10),
+            (LidarMode::Scan512x20, 20),
+            (LidarMode::Scan1024x10, 10),
+            (LidarMode::Scan1024x20, 20),
+            (LidarMode::Scan2048x10, 10),
+            (LidarMode::Scan4096x5, 5)
+        ];
+
+        for (mode, want) in cases {
+            info!("Getting frequency for {mode:?}, expecting {want:?}");
+            let got = mode.frequency();
+            assert_eq!(want, got);
+        }
+    }
+
 }
+
+

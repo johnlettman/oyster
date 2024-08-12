@@ -20,7 +20,6 @@
 ///
 /// [Shot Limiting]: https://static.ouster.dev/sensor-docs/image_route1/image_route3/sensor_operations/sensor-operations.html#shot-limiting
 #[derive(Debug, serde::Serialize, serde::Deserialize, Eq, PartialEq, Copy, Clone)]
-#[bits = 4]
 pub enum ShotLimitingStatus {
     /// Normal operation of the LIDAR.
     #[serde(rename = "SHOT_LIMITING_NORMAL")]
@@ -79,7 +78,7 @@ impl ShotLimitingStatus {
     /// assert_eq!(condition.is_shot_limiting(), true);
     /// ```
     #[inline]
-    pub const fn is_shot_limiting(&self) -> bool {
+    pub fn is_shot_limiting(&self) -> bool {
         (*self == Self::Normal || *self == Self::Imminent)
     }
 
@@ -98,7 +97,7 @@ impl ShotLimitingStatus {
     /// assert_eq!(condition.is_shot_limiting(), false);
     /// ```
     #[inline]
-    pub const fn is_normal(&self) -> bool {
+    pub fn is_normal(&self) -> bool {
         !self.is_shot_limiting()
     }
 }
