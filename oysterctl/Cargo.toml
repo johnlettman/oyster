@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 serde_json = "1.0.124"
-clap = "4.5.13"
+clap = "4.5.15"
 
 [lints]
 workspace = true
