@@ -67,7 +67,7 @@ mod tests {
         ];
 
         for (polarity, want) in cases {
-            info!("Displaying {polarity:?}, expecting {want:?}");
+            info!("Displaying {polarity:?}, want {want:?}");
             let got = format!("{polarity}");
             assert_eq!(want, got);
         }

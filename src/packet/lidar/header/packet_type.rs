@@ -44,7 +44,7 @@ mod tests {
         ];
 
         for (packet_type, want) in cases {
-            info!("Displaying {packet_type:?}, expecting {want:?}");
+            info!("Displaying {packet_type:?}, want {want:?}");
             let got = format!("{packet_type}");
             assert_eq!(want, got);
         }

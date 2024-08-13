@@ -1,12 +1,24 @@
-use crate::packet::lidar::column::{DataBlock, HeaderBlock};
+use crate::packet::lidar::column::{Block, Header};
 use binrw::{BinRead, BinWrite};
-use modular_bitfield::bitfield;
-use pyo3::pyclass;
 
 #[derive(Debug, BinRead, BinWrite, Eq, PartialEq, Clone)]
-#[br(map = Self::from_bytes)]
-#[cfg_attr(feature = "pyo3", pyclass)]
 pub struct Column {
-    header_block: HeaderBlock,
-    data_block: DataBlock,
+    header: Header,
+    block: Block,
+}
+
+impl Column {
+    #[inline]
+    pub fn is_valid(&self) -> bool {
+        self.header.is_valid()
+    }
+}
+
+impl Default for Column {
+    fn default() -> Self {
+        Self {
+            header: Header::default(),
+            block: Block::SingleReturn(SingleReturns {})
+        }
+    }
 }

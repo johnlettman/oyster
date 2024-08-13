@@ -10,7 +10,6 @@ mod profile;
 pub use packet::Packet;
 pub use profile::Profile;
 
-pub use header::Header;
 
 use column::pyo3_register_module_packet_lidar_column;
 

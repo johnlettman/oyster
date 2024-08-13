@@ -121,6 +121,13 @@ mod tests {
         }
     }
 
+    #[test]
+    fn test_default() {
+        let want = LidarMode::Scan1024x10;
+        let got = LidarMode::default();
+        assert_eq!(want, got);
+    }
+
 }
 
 

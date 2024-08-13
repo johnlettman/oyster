@@ -2,27 +2,26 @@
 use pyo3::prelude::*;
 
 mod column;
-mod data_block;
 mod header;
 mod status;
+mod block;
 
-pub use column::Column;
-pub use data_block::{
-    DataBlock, DualReturns, FuSaTwoWordPixel, SingleReturns, SingleReturnsLowDataRate,
+pub use block::{
+    Block, SingleReturnBlock, SingleLowDataRateReturnBlock, DualReturnBlock, FuSaDualReturnBlock
 };
-pub use header::HeaderBlock;
+pub use column::Column;
+pub use header::Header;
 
 #[cfg(feature = "pyo3")]
 pub(crate) fn pyo3_register_module_packet_lidar_column(
     parent_module: &Bound<'_, PyModule>,
 ) -> PyResult<()> {
     let module = PyModule::new_bound(parent_module.py(), "column")?;
-    module.add_class::<DualReturns>()?;
-    module.add_class::<FuSaTwoWordPixel>()?;
-    module.add_class::<SingleReturns>()?;
-    module.add_class::<SingleReturnsLowDataRate>()?;
-    module.add_class::<HeaderBlock>()?;
-    module.add_class::<Column>()?;
+    module.add_class::<DualReturnBlock>()?;
+    module.add_class::<FuSaDualReturnBlock>()?;
+    module.add_class::<SingleReturnBlock>()?;
+    module.add_class::<SingleLowDataRateReturnBlock>()?;
+    module.add_class::<Header>()?;
 
     parent_module.add("column", module)?;
     Ok(())

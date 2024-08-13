@@ -44,7 +44,7 @@ impl LidarDataFormat {
 
         LidarDataFormat {
             message: "".to_string(),
-            profile: LidarProfile::DEFAULT,
+            profile: LidarProfile::Legacy,
             pixels_per_column,
             column_window,
             columns_per_frame,

@@ -35,12 +35,12 @@ impl WriteEndian for AlertFlags {
     const ENDIAN: EndianKind = EndianKind::None;
 }
 
-impl BinRead for AlertFlags {
-    fn read<R: Read + Seek>(reader: &mut R) -> BinResult<Self>
-    where
-        Self: ReadEndian,
-        for<'a> Self::Args<'a>: Required,
-    {
-        let raw = u8::read(reader)?;
-    }
-}
+// impl BinRead for AlertFlags {
+//     fn read<R: Read + Seek>(reader: &mut R) -> BinResult<Self>
+//     where
+//         Self: ReadEndian,
+//         for<'a> Self::Args<'a>: Required,
+//     {
+//         let raw = u8::read(reader)?;
+//     }
+// }

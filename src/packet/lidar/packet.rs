@@ -1,4 +1,3 @@
-use crate::packet::lidar::Header;
 use crate::types::{ShotLimitingStatus, ThermalShutdownStatus};
 use binrw::prelude::*;
 use modular_bitfield::prelude::*;
@@ -9,5 +8,5 @@ use pyo3::pyclass;
 #[brw(little)]
 #[cfg_attr(feature = "pyo3", pyclass)]
 pub struct Packet {
-    header: Header,
+//header: Header,
 }

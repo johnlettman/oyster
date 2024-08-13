@@ -1,15 +1,16 @@
 use std::cmp::{max, min, Ordering};
 use std::fmt::{Display, Formatter, Result};
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, serde::Serialize, serde::Deserialize, Eq, Ord, Copy, Clone)]
-pub struct AzimuthWindow(usize, usize);
+#[derive(Debug, Serialize, Deserialize, Eq, Ord, Copy, Clone)]
+pub struct AzimuthWindow(u32, u32);
 
 impl AzimuthWindow {
-    pub const MIN_MILLIDEGREES: usize = 0;
-    pub const MAX_MILLIDEGREES: usize = 360000;
+    pub const MIN_MILLIDEGREES: u32 = 0;
+    pub const MAX_MILLIDEGREES: u32 = 360000;
 
     #[inline]
-    pub const fn new(a: usize, b: usize) -> AzimuthWindow {
+    pub const fn new(a: u32, b: u32) -> AzimuthWindow {
         Self(a, b)
     }
 
@@ -24,7 +25,7 @@ impl AzimuthWindow {
     /// assert_eq!(size, 7 - 3);
     /// ```
     #[inline]
-    pub fn size(&self) -> usize {
+    pub fn size(&self) -> u32 {
         self.0.abs_diff(self.1)
     }
 
@@ -44,7 +45,7 @@ impl AzimuthWindow {
     /// assert_eq!(start, 3);
     /// ```
     #[inline]
-    pub fn start(&self) -> usize {
+    pub fn start(&self) -> u32 {
         min(self.0, self.1)
     }
 
@@ -61,20 +62,35 @@ impl AzimuthWindow {
     /// # }
     /// ```
     #[inline]
-    pub fn end(&self) -> usize {
+    pub fn end(&self) -> u32 {
         max(self.0, self.1)
     }
 
     #[inline]
-    pub fn zero(&self) -> bool {
+    pub const fn zero(&self) -> bool {
         self.0 == 0 && self.1 == 0
     }
 
-    pub fn valid(&self) -> bool {
-        return self.0 >= Self::MIN_MILLIDEGREES
-            && self.0 <= Self::MAX_MILLIDEGREES
-            && self.1 >= Self::MIN_MILLIDEGREES
-            && self.1 <= Self::MAX_MILLIDEGREES;
+    #[inline]
+    pub const fn valid(&self) -> bool {
+        Self::valid_millidegrees(self.0) && Self::valid_millidegrees(self.1)
+    }
+
+    #[inline]
+    pub const fn valid_millidegrees(md: u32) -> bool {
+        Self::MIN_MILLIDEGREES <= md && md <= Self::MAX_MILLIDEGREES
+    }
+}
+
+impl Default for AzimuthWindow {
+    fn default() -> Self {
+        Self(Self::MIN_MILLIDEGREES, Self::MAX_MILLIDEGREES)
+    }
+}
+
+impl Display for AzimuthWindow {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
+        return write!(f, "({}m° -> {}m°)", self.start(), self.end());
     }
 }
 
@@ -100,38 +116,26 @@ impl PartialOrd for AzimuthWindow {
     }
 }
 
-impl Display for AzimuthWindow {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-        return write!(f, "({}m° -> {}m°)", self.start(), self.end());
-    }
-}
-
-impl Default for AzimuthWindow {
-    fn default() -> Self {
-        Self(Self::MIN_MILLIDEGREES, Self::MAX_MILLIDEGREES)
-    }
-}
-
-impl From<[usize; 2]> for AzimuthWindow {
-    fn from(value: [usize; 2]) -> Self {
+impl From<[u32; 2]> for AzimuthWindow {
+    fn from(value: [u32; 2]) -> Self {
         Self::new(value[0], value[1])
     }
 }
 
-impl Into<[usize; 2]> for AzimuthWindow {
-    fn into(self) -> [usize; 2] {
-        [self.start(), self.end()]
+impl From<AzimuthWindow> for [u32; 2] {
+    fn from(value: AzimuthWindow) -> [u32; 2] {
+        [value.start(), value.end()]
     }
 }
 
-impl From<Vec<usize>> for AzimuthWindow {
-    fn from(value: Vec<usize>) -> Self {
+impl From<Vec<u32>> for AzimuthWindow {
+    fn from(value: Vec<u32>) -> Self {
         Self::new(value[0], value[1])
     }
 }
 
-impl Into<Vec<usize>> for AzimuthWindow {
-    fn into(self) -> Vec<usize> {
-        vec![self.start(), self.end()]
+impl From<AzimuthWindow> for Vec<u32> {
+    fn from(value: AzimuthWindow) -> Vec<u32> {
+        vec![value.start(), value.end()]
     }
 }

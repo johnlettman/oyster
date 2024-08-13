@@ -72,7 +72,7 @@ mod tests {
         ];
 
         for (return_order, want) in cases {
-            info!("Displaying {return_order:?}, expecting {want:?}");
+            info!("Displaying {return_order:?}, want {want:?}");
             let got = format!("{return_order}");
             assert_eq!(want, got);
         }

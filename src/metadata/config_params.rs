@@ -173,21 +173,21 @@ pub struct ConfigParams {
     #[serde(default = "ConfigParams::default_signal_multiplier")]
     signal_multiplier: f64,
 
-    /// The configuration of LIDAR packets.
-    ///
-    /// For additional information, [`udp_profile_lidar`].
-    ///
-    /// [`udp_profile_lidar`]: https://static.ouster.dev/sensor-docs/image_route1/image_route2/common_sections/API/sensor_configuration_description.html#udp-profile-lidar
-    #[serde(rename = "udp_profile_lidar", default = "ConfigParams::default_lidar_profile")]
-    lidar_profile: LidarProfile,
+    // /// The configuration of LIDAR packets.
+    // ///
+    // /// For additional information, [`udp_profile_lidar`].
+    // ///
+    // /// [`udp_profile_lidar`]: https://static.ouster.dev/sensor-docs/image_route1/image_route2/common_sections/API/sensor_configuration_description.html#udp-profile-lidar
+    // #[serde(rename = "udp_profile_lidar", default = "ConfigParams::default_lidar_profile")]
+    // lidar_profile: LidarProfile,
 
-    /// The configuration of IMU packets.
-    ///
-    /// For additional information, [`udp_profile_imu`].
-    ///
-    /// [`udp_profile_imu`]: https://static.ouster.dev/sensor-docs/image_route1/image_route2/common_sections/API/sensor_configuration_description.html#udp-profile-imu
-    #[serde(rename = "udp_profile_imu", default = "ConfigParams::default_imu_profile")]
-    imu_profile: ImuProfile,
+    // /// The configuration of IMU packets.
+    // ///
+    // /// For additional information, [`udp_profile_imu`].
+    // ///
+    // /// [`udp_profile_imu`]: https://static.ouster.dev/sensor-docs/image_route1/image_route2/common_sections/API/sensor_configuration_description.html#udp-profile-imu
+    // #[serde(rename = "udp_profile_imu", default = "ConfigParams::default_imu_profile")]
+    // imu_profile: ImuProfile,
 
     /// Determines whether phase locking is enabled.
     ///
@@ -301,8 +301,8 @@ impl ConfigParams {
     pub const DEFAULT_PHASE_LOCK_ENABLE: bool = false;
     pub const DEFAULT_PHASE_LOCK_OFFSET: u32 = 0;
 
-    pub const DEFAULT_LIDAR_PROFILE: LidarProfile = LidarProfile::DEFAULT;
-    pub const DEFAULT_IMU_PROFILE: ImuProfile = ImuProfile::DEFAULT;
+    // pub const DEFAULT_LIDAR_PROFILE: LidarProfile = LidarProfile::DEFAULT;
+    // pub const DEFAULT_IMU_PROFILE: ImuProfile = ImuProfile::DEFAULT;
 
     pub const DEFAULT_MIN_RANGE_THRESHOLD: usize = 50;
 
@@ -356,12 +356,12 @@ impl ConfigParams {
         Self::DEFAULT_PHASE_LOCK_OFFSET
     }
 
-    fn default_lidar_profile() -> LidarProfile {
-        Self::DEFAULT_LIDAR_PROFILE
-    }
-    fn default_imu_profile() -> ImuProfile {
-        Self::DEFAULT_IMU_PROFILE
-    }
+    // fn default_lidar_profile() -> LidarProfile {
+    //     Self::DEFAULT_LIDAR_PROFILE
+    // }
+    // fn default_imu_profile() -> ImuProfile {
+    //     Self::DEFAULT_IMU_PROFILE
+    // }
     fn default_auto_start_flag() -> bool {
         true
     }

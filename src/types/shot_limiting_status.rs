@@ -1,3 +1,6 @@
+use num_derive::{FromPrimitive, ToPrimitive};
+use serde::{Deserialize, Serialize};
+
 /// Represents the operating state of the Ouster sensor under high temperatures.
 /// It is used to manage the sensor's performance and lifespan.
 ///
@@ -19,7 +22,7 @@
 /// For additional information, refer to [Shot Limiting].
 ///
 /// [Shot Limiting]: https://static.ouster.dev/sensor-docs/image_route1/image_route3/sensor_operations/sensor-operations.html#shot-limiting
-#[derive(Debug, serde::Serialize, serde::Deserialize, Eq, PartialEq, Copy, Clone)]
+#[derive(Debug, Serialize, Deserialize, Eq, PartialEq, Copy, Clone, FromPrimitive, ToPrimitive)]
 pub enum ShotLimitingStatus {
     /// Normal operation of the LIDAR.
     #[serde(rename = "SHOT_LIMITING_NORMAL")]

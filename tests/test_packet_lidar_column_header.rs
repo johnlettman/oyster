@@ -1,6 +1,6 @@
 use bilge::arbitrary_int::u96;
 use fake::{Fake, Faker};
-use oyster::packet::lidar::column::HeaderBlock;
+use oyster::packet::lidar::column::Header;
 use oyster::packet::packing::Packer;
 
 #[test]
@@ -8,12 +8,12 @@ fn test_try_from_u96() {
     let timestamp = Faker.fake::<u64>();
     let measurement_id = Faker.fake::<u16>();
     let status = 0b1000_0000_0000_0000u16;
-    let want = HeaderBlock::new(true, measurement_id, timestamp);
+    let want = Header::new(true, measurement_id, timestamp);
 
     let input: u128 =
         (timestamp as u128) << (16 + 16) | (measurement_id as u128) << 16 | status as u128;
 
-    let got = HeaderBlock::try_from(u96::new(input));
+    let got = Header::try_from(u96::new(input));
 
     assert!(got.is_ok());
     assert_eq!(got.unwrap(), want);
@@ -24,12 +24,12 @@ fn test_try_from_bytes() {
     let timestamp = Faker.fake::<u64>();
     let measurement_id = Faker.fake::<u16>();
     let status = 0b1000_0000_0000_0000u16;
-    let want = HeaderBlock::new(true, measurement_id, timestamp);
+    let want = Header::new(true, measurement_id, timestamp);
 
     let input: u128 =
         (timestamp as u128) << (16 + 16) | (measurement_id as u128) << 16 | status as u128;
 
-    let got = HeaderBlock::unpack(&input.to_le_bytes());
+    let got = Header::unpack(&input.to_le_bytes());
     assert!(got.is_ok());
 
     let got_unwrapped = got.unwrap();

@@ -1,5 +1,6 @@
 use std::fmt::{Display, Formatter};
 use num_derive::{FromPrimitive, ToPrimitive};
+use serde::{Deserialize, Serialize};
 
 /// ThermalShutdownStatus represents the state of the Ouster sensor when it reaches
 /// the maximum operating temperature. This is handled by an independent state machine
@@ -13,8 +14,8 @@ use num_derive::{FromPrimitive, ToPrimitive};
 /// [Shot Limiting]: https://static.ouster.dev/sensor-docs/image_route1/image_route3/sensor_operations/sensor-operations.html#shot-limiting
 #[derive(
     Debug,
-    serde::Serialize,
-    serde::Deserialize,
+    Serialize,
+    Deserialize,
     Eq,
     PartialEq,
     Copy,

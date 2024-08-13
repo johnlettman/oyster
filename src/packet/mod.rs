@@ -3,7 +3,6 @@ use pyo3::prelude::*;
 
 pub mod imu;
 pub mod lidar;
-pub mod profile;
 
 pub use imu::Packet as ImuPacket;
 pub use imu::Profile as ImuProfile;

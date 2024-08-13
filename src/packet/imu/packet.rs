@@ -12,33 +12,33 @@ use binrw::prelude::*;
 #[derive(Debug, BinRead, BinWrite, Serialize, Deserialize, PartialEq)]
 pub struct Packet {
     /// Timestamp of the monotonic system time since boot in ns.
-    diagnostic_system_time: u64,
+    pub diagnostic_system_time: u64,
 
     /// Timestamp for the Accelerometer relative to
     /// [TimestampMode](crate::types::TimestampMode) in ns.
-    accelerometer_time: u64,
+    pub accelerometer_time: u64,
 
     /// Timestamp for the Gyroscope relative to
     /// [TimestampMode](crate::types::TimestampMode) in ns.
-    gyroscope_time: u64,
+    pub gyroscope_time: u64,
 
     /// Measured linear acceleration in g for the X axis.
-    linear_acceleration_x: f32,
+    pub linear_acceleration_x: f32,
 
     /// Measured linear acceleration in g for the Y axis.
-    linear_acceleration_y: f32,
+    pub linear_acceleration_y: f32,
 
     /// Measured linear acceleration in g for the Z axis.
-    linear_acceleration_z: f32,
+    pub linear_acceleration_z: f32,
 
     /// Measured angular velocity in °/sec for the X axis.
-    angular_velocity_x: f32,
+    pub angular_velocity_x: f32,
 
     /// Measured angular velocity in °/sec for the Y axis.
-    angular_velocity_y: f32,
+    pub angular_velocity_y: f32,
 
     /// Measured angular velocity in °/sec for the Z axis.
-    angular_velocity_z: f32,
+    pub angular_velocity_z: f32,
 }
 
 impl Packet {
@@ -61,6 +61,24 @@ impl Packet {
     }
 }
 
+impl Default for Packet {
+    fn default() -> Self {
+        Self {
+            diagnostic_system_time: 0,
+            accelerometer_time: 0,
+            gyroscope_time: 0,
+
+            linear_acceleration_x: 0.0,
+            linear_acceleration_y: 0.0,
+            linear_acceleration_z: 0.0,
+
+            angular_velocity_x: 0.0,
+            angular_velocity_y: 0.0,
+            angular_velocity_z: 0.0,
+        }
+    }
+}
+
 impl Display for Packet {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         write!(
@@ -74,5 +92,71 @@ impl Display for Packet {
             self.angular_velocity_y,
             self.angular_velocity_z
         )
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    use log::info;
+    use test_log::test;
+
+    #[test]
+    fn test_default() {
+        let want = Packet {
+            diagnostic_system_time: 0,
+            accelerometer_time: 0,
+            gyroscope_time: 0,
+            linear_acceleration_x: 0.0,
+            linear_acceleration_y: 0.0,
+            linear_acceleration_z: 0.0,
+            angular_velocity_x: 0.0,
+            angular_velocity_y: 0.0,
+            angular_velocity_z: 0.0,
+        };
+
+        let got = Packet::default();
+        assert_eq!(want, got);
+    }
+
+    #[test]
+    fn test_display() {
+        let cases = vec![
+            (
+                Packet {
+                    diagnostic_system_time: 0,
+                    accelerometer_time: 0,
+                    gyroscope_time: 0,
+                    linear_acceleration_x: 0.0,
+                    linear_acceleration_y: 0.0,
+                    linear_acceleration_z: 0.0,
+                    angular_velocity_x: 0.0,
+                    angular_velocity_y: 0.0,
+                    angular_velocity_z: 0.0,
+                },
+                "(t+0, →a=[0.0000, 0.0000, 0.0000], ω=[0.0000, 0.0000, 0.0000])",
+            ),
+            (
+                Packet {
+                    diagnostic_system_time: 0,
+                    accelerometer_time: 0,
+                    gyroscope_time: 0,
+                    linear_acceleration_x: 1.0,
+                    linear_acceleration_y: 2.0,
+                    linear_acceleration_z: 3.0,
+                    angular_velocity_x: 4.0,
+                    angular_velocity_y: 5.0,
+                    angular_velocity_z: 6.0,
+                },
+                "(t+0, →a=[1.0000, 2.0000, 3.0000], ω=[4.0000, 5.0000, 6.0000])",
+            ),
+        ];
+
+        for (packet, want) in cases {
+            info!("Displaying {packet:?}, expecting {want:?}");
+            let got = format!("{packet}");
+            assert_eq!(want, got);
+        }
     }
 }
