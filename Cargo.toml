@@ -40,7 +40,7 @@ num-traits = "0.2"
 test-log = "0.2"
 
 [dev-dependencies]
-fake = "2.10.0"
+fake = "3.0.0"
 
 [features]
 default = ["pyo3"]
