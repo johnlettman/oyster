@@ -13,7 +13,7 @@ crate-type = ["cdylib", "rlib"]
 [dependencies]
 phf = {  version = "0.11.2", default-features = false }
 phf_codegen = "0.11.1"
-serde = { version = "1.0.215", features = ["derive"] }
+serde = { version = "1.0.216", features = ["derive"] }
 log = "0.4.22"
 serde_json = "1.0.133"
 nalgebra = {  version = "0.33.2", features = ["serde", "serde-serialize"] }
